@@ -12,7 +12,18 @@ class TestController extends AbstractController
     public function index(): Response
     {
         return $this->render('test/index.html.twig', [
-            'controller_name' => 'TestController',
+            'controller_name' => 'Test',
         ]);
     }
+
+    #[Route('/test/{id}', name: 'test_id', methods: ["GET"], requirements: ['id' => '\d+'])]
+    public function test_id($id): Response
+    {
+        //dd($id);
+        return $this->render('test/index2.html.twig', [
+            'controller_name' => 'Test id',
+            'id' => $id
+        ]);
+    }
+
 }
