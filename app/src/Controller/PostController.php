@@ -20,7 +20,10 @@ class PostController extends AbstractController
     public function post_view(): Response
     {
         return $this->render('post/post_view.html.twig', [
-            'controller_name' => 'PostController',
+            'post' => [
+                'title' => 'Le titre 2',
+                'content' => 'Le super contenu'
+            ],
         ]);
     }
 }
