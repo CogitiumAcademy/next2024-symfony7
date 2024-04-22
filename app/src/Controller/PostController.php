@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Post;
+use App\Form\PostType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PostController extends AbstractController
 {
@@ -13,6 +16,17 @@ class PostController extends AbstractController
     {
         return $this->render('post/index.html.twig', [
             'controller_name' => 'PostController',
+        ]);
+    }
+
+    #[Route('/post/add', name: 'post_add')]
+    public function addPost(Request $request): Response
+    {
+        $post = new Post();
+        $form = $this->createForm(PostType::class, $post);
+
+        return $this->render('post/add.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 
