@@ -1,9 +1,14 @@
 {% extends 'clean.html.twig' %}
 
 {% block title %}{{ post.title }}{% endblock %}
-{% block headerBackground %}{{ asset('clean/assets/img/post-bg.jpg') }}{% endblock %}
+{% block headerBackground %}{{ post.image }}{% endblock %}
 {% block headerTitle %}{{ post.title }}{% endblock %}
-{% block headerSubheading %}Des détails{% endblock %}
+{% block headerSubheading %}
+Rédigé par
+{{ post.user.email }}
+{{ post.createdAt | ago }} <br>
+Classé dans {{ post.category.name }}
+{% endblock %}
 
 {% block content %}
         <!-- Post Content-->
@@ -11,7 +16,7 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
-                        <p>{{ post.content }}</p>
+                        <p>{{ post.content | raw }}</p>
                     </div>
                 </div>
             </div>

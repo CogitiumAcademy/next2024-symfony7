@@ -6,6 +6,7 @@ use App\Entity\Post;
 //use App\Entity\User;
 use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,7 +19,10 @@ class PostType extends AbstractType
         $builder
             ->add('title')
             //->add('slug')
-            ->add('content')
+            //->add('content')
+            ->add('content', CKEditorType::class, [
+                "label" => "Contenu",
+            ])
             ->add('image')
             /*
             ->add('createdAt', null, [

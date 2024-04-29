@@ -25,9 +25,8 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ path('home') }}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ path('page_about') }}">About</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ path('post_view', {id: 12}) }}">Sample Post</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ path('home') }}">Accueil</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ path('page_about') }}">A propos</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ path('page_contact') }}">Contact</a></li>
                         
                         {% if not is_granted("ROLE_USER") %}
@@ -35,11 +34,14 @@
                                 <a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ path('app_register') }}">S'inscrire</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ path('app_login') }}">Login</a>
+                                <a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ path('app_login') }}">Connexion</a>
                             </li>
                         {% else %}
                             <li class="nav-item">
-                                <a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ path('app_logout') }}">Logout</a>
+                                <a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ path('post_add') }}">Proposer un article</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ path('app_logout') }}">Déconnexion</a>
                             </li>
                         {% endif %}
                         
