@@ -9,6 +9,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PostController extends AbstractController
@@ -16,7 +17,9 @@ class PostController extends AbstractController
     #[Route('/', name: 'home')]
     public function index(PostRepository $postRepository): Response
     {
-        $posts = $postRepository->findAll();
+        //$posts = $postRepository->findAll();
+        $posts = $postRepository->findLastPosts();
+        
         $oldposts = $postRepository->findOldPosts(2);
         //dd($oldposts);
 
@@ -26,6 +29,7 @@ class PostController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/post/add', name: 'post_add')]
     public function addPost(Request $request, ManagerRegistry $doctrine): Response
     {
