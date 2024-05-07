@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Form\CategoryType;
+use App\Repository\CategoryRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,10 +15,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CategoryController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(): Response
+    public function index(CategoryRepository $categoryRepository): Response
     {
         return $this->render('admin/category/index.html.twig', [
-            
+            'categories' => $categoryRepository->findAll(),
         ]);
     }
 
@@ -33,11 +34,43 @@ class CategoryController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($category);
             $em->flush();
-            return $this->redirectToRoute('admin_home');
+            return $this->redirectToRoute('admin_category_index');
         }
 
         return $this->render('admin/category/add.html.twig', [
+            'h1' => 'Création catégorie',
             'formu' => $form->createView(),
         ]);
+    }
+
+    #[Route('/update/{id}', name: 'update')]
+    public function updateCategory(Category $category, Request $request, ManagerRegistry $doctrine): Response
+    {
+        //$category = new Category();
+        //dd($category);
+        $form = $this->createForm(CategoryType::class, $category);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $doctrine->getManager();
+            //$em->persist($category);
+            $em->flush();
+            return $this->redirectToRoute('admin_category_index');
+        }
+
+        return $this->render('admin/category/add.html.twig', [
+            'h1' => 'Mofification catégorie',
+            'formu' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/delete/{id}', name: 'delete')]
+    public function delete(Category $category, ManagerRegistry $doctrine): Response
+    {
+        $em = $doctrine->getManager();
+        $em->remove($category);
+        $em->flush();
+        //$this->addFlash('success', 'Article supprimé !');
+        return $this->redirectToRoute('admin_category_index');
     }
 }
