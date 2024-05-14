@@ -52,7 +52,7 @@
                     <td>{{ category.parent }}</td>
                     <td>
                         <a href="{{ path('admin_category_update', {id: category.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
-                        <a href="{{ path('admin_category_delete', {id: category.id}) }}" class="btn btn-primary btn-sm" onclick="return confirm('Confirmation ?');">Supprimer</a>
+                        <a href="{{ path('admin_category_delete', {id: category.id, _csrf_token: csrf_token('delete')}) }}" class="btn btn-primary btn-sm" onclick="return confirm('Confirmation ?');">Supprimer</a>
                     </td>
                 </tr>
                 {% endfor %}

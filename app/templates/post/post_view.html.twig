@@ -1,7 +1,7 @@
 {% extends 'clean.html.twig' %}
 
 {% block title %}{{ post.title }}{% endblock %}
-{% block headerBackground %}{{ post.image }}{% endblock %}
+{% block headerBackground %}{{ asset('images/posts/' ~ post.imageName) }}{% endblock %}
 {% block headerTitle %}{{ post.title }}{% endblock %}
 {% block headerSubheading %}
 Rédigé par

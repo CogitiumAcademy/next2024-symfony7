@@ -18,7 +18,7 @@ class PostController extends AbstractController
     public function index(PostRepository $postRepository): Response
     {
         //$posts = $postRepository->findAll();
-        $posts = $postRepository->findLastPosts();
+        $posts = $postRepository->findLastPosts(10);
         
         $oldposts = $postRepository->findOldPosts(2);
         //dd($oldposts);
@@ -33,11 +33,14 @@ class PostController extends AbstractController
     #[Route('/post/add', name: 'post_add')]
     public function addPost(Request $request, ManagerRegistry $doctrine): Response
     {
+        //phpinfo(); exit;
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
 
         $form->handleRequest($request);
+        //dd($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            //dd($post);
             $post->setUser($this->getUser());            
             $post->setActive(false);
             $em = $doctrine->getManager();

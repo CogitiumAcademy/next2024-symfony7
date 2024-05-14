@@ -2,12 +2,13 @@
 
 namespace App\Form;
 
-use App\Entity\Category;
 use App\Entity\Post;
 use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Post1Type extends AbstractType
@@ -18,7 +19,17 @@ class Post1Type extends AbstractType
             ->add('title')
             ->add('slug')
             ->add('content')
-            ->add('image')
+            //->add('image')
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                'delete_label' => 'Supprimer',
+                //'download_label' => '...',
+                'download_uri' => true,
+                'image_uri' => true,
+                //'imagine_pattern' => '...',
+                'asset_helper' => true,
+            ])            
             ->add('createdAt', null, [
                 'widget' => 'single_text',
             ])
